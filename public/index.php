@@ -1,2 +1,3 @@
 <?php
-var_dump();
+require_once '../vendor/autoload.php';
+EnvConfig::configure();

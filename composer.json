@@ -1,0 +1,16 @@
+{
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Model\\": "src/Models",
+            "DB\\": "src/Database"
+        },
+        "files": [
+            "EnvConfig.php"
+        ]
+    }
+
+}
