@@ -1,5 +1,12 @@
 <?php
 
+namespace Controller;
+
+use Components\Validator;
+use DB\DB;
+use Model\User;
+
+
 class UserController
 {
     public function __construct(private readonly array $request)
@@ -7,9 +14,20 @@ class UserController
 
     }
 
-    public function index()
+    public function index():void
     {
-        require_once 'src/view/start_page.php';
+        if (!Validator::validate($this->request)) {
+            echo 'bad request';
+        } else {
+            $db = new DB();
+            $user = new User($this->request['login'], $this->request['password']);
+            if (!$db->createNewUser($user)){
+                echo 'error';
+            }else{
+                echo 'class';
+            }
+        }
+        //require_once 'src/view/start_page.php';
     }
 
 }

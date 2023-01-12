@@ -10,11 +10,11 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/createUser">
+    <form action="/createUser" method="post">
         <p>Input Login</p>
-        <input type="text"><br>
+        <input type="text" name="login"><br>
         <p>Input Password</p>
-        <input type="password"><br>
+        <input type="password" name="password"><br>
         <input type="submit">
     </form>
 </body>

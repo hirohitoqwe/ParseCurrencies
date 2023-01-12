@@ -1,17 +1,21 @@
 {
     "require": {
         "vlucas/phpdotenv": "^5.5",
-        "bramus/router": "~1.6"
+        "bramus/router": "~1.6",
+        "ext-pdo": "*"
     },
 
     "autoload": {
         "psr-4": {
             "Model\\": "src/Models",
-            "DB\\": "src/Database"
+            "DB\\": "src/Database",
+            "Controller\\": "src/Controllers",
+            "Components\\": "src/Components"
         },
         "files": [
             "EnvConfig.php",
-            "src/view/start_page.php"
+            "src/view/start_page.php",
+            "src/view/home.php"
         ]
     }
 

@@ -1,10 +1,4 @@
-RewriteEngine on
-
-RewriteBase /
-RewriteCond %{HTTP_HOST} (.*)
-RewriteCond %{REQUEST_URI} /$ [NC]
-RewriteRule ^(.*)(/)$ $1 [L,R=301]
-
+RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.php [L]
+RewriteRule . index.php [L]

@@ -1,5 +1,7 @@
 <?php
 
+namespace Components;
+
 class SourceData
 {
     const url = 'https://www.cbr.ru/currency_base/daily/';
