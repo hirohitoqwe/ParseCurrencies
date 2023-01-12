@@ -19,11 +19,12 @@ $router->get('/home', function () {
 
 $router->post('/createUser', function () {
     $controller = new UserController($_POST);
-    $controller->index();
+    $controller->registration();
 });
 
 $router->post('/auth', function () {
-
+    $controller = new UserController($_POST);
+    $controller->auth();
 });
 
 

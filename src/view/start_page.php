@@ -17,5 +17,16 @@
         <input type="password" name="password"><br>
         <input type="submit">
     </form>
+
+    Войти
+    
+    <form action="/auth" method="post">
+        <p>Input Login</p>
+        <input type="text" name="login"><br>
+        <p>Input Password</p>
+        <input type="password" name="password"><br>
+        <input type="submit">
+    </form>
+
 </body>
 </html>
