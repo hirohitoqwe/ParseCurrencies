@@ -1,6 +1,7 @@
 {
     "require": {
-        "vlucas/phpdotenv": "^5.5"
+        "vlucas/phpdotenv": "^5.5",
+        "bramus/router": "~1.6"
     },
 
     "autoload": {
@@ -9,7 +10,8 @@
             "DB\\": "src/Database"
         },
         "files": [
-            "EnvConfig.php"
+            "EnvConfig.php",
+            "src/view/start_page.php"
         ]
     }
 
