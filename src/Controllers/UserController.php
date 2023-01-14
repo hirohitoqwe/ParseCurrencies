@@ -11,7 +11,7 @@ class UserController
 {
     public function __construct(private readonly array $request)
     {
-
+        session_start();
     }
 
     public function registration(): void
@@ -22,25 +22,26 @@ class UserController
             $db = new DB();
             $user = new User($this->request['login'], $this->request['password']);
             if (!$db->createNewUser($user)) {
-                echo 'error';
+                $_SESSION['reg_error'] = 'Invalid Arguments';
             } else {
-                echo 'class';
+                header('Location:/');
             }
         }
-        //require_once 'src/view/start_page.php';
     }
 
-    public function auth():void
+    public function auth(): void
     {
         if (!Validator::validate($this->request)) {
-            echo 'bad request';
+            $_SESSION['auth_error'] = 'Invalid Validate';
         } else {
             $db = new DB();
             $user = new User($this->request['login'], $this->request['password']);
             if (!$db->checkUser($user)) {
-                echo 'error';
+                $_SESSION['auth_error'] = 'Invalid Arguments';
+                header('Location:/');
             } else {
-                echo 'class';
+                $_SESSION['auth'] = "authorization";
+                header('Location:/home');
             }
         }
     }

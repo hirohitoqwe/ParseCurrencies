@@ -2,17 +2,30 @@
 
 namespace Components;
 
+use Symfony\Component\DomCrawler\Crawler;
+
 class SourceData
 {
     const url = 'https://www.cbr.ru/currency_base/daily/';
 
-    public function __construct(private readonly string $url)
-    {
-    }
-
-    public function getData(): string|false
+    public function getSourceData(): string|false
     {
         return file_get_contents(self::url);
-        //return file_get_contents($this->url);
     }
+
+    public function getCurrenciesData(): array|false
+    {
+        $crawler = new Crawler($this->getSourceData());
+
+        if ($this->getSourceData()) {
+            $table = $crawler->filter('table')->filter('tr')->each(function ($tr, $i) {
+                return $tr->filter('td')->each(function ($td, $i) {
+                    return trim($td->text());
+                });
+            });
+            return array_slice($table,1);
+        }
+        return false;
+    }
+
 }

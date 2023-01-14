@@ -10,23 +10,34 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/createUser" method="post">
-        <p>Input Login</p>
-        <input type="text" name="login"><br>
-        <p>Input Password</p>
-        <input type="password" name="password"><br>
-        <input type="submit">
-    </form>
 
-    Войти
-    
-    <form action="/auth" method="post">
-        <p>Input Login</p>
-        <input type="text" name="login"><br>
-        <p>Input Password</p>
-        <input type="password" name="password"><br>
-        <input type="submit">
-    </form>
+<p>Регистрация</p>
 
+
+<form action="/createUser" method="post" name="registration">
+    <p>Input Login</p>
+    <input type="text" name="login"><br>
+    <p>Input Password</p>
+    <input type="password" name="password"><br>
+    <input type="submit">
+</form>
+<?php if (!empty($_SESSION['reg_error'])) {
+    echo "<div>Registration error</div>";
+}
+unset($_SESSION['reg_error']);
+?>
+<p>Авторизация</p>
+<form action="/auth" method="post" name="auth">
+    <p>Input Login</p>
+    <input type="text" name="login"><br>
+    <p>Input Password</p>
+    <input type="password" name="password"><br>
+    <input type="submit">
+</form>
+<?php if (!empty($_SESSION['auth_error'])) {
+    echo "<div>Auth error</div>";
+}
+unset($_SESSION['auth_error']);
+?>
 </body>
 </html>
