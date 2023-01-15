@@ -9,7 +9,7 @@ use Model\User;
 
 class UserController
 {
-    public function __construct(private readonly array $request)
+    public function __construct(private readonly array $request,private readonly DB $db)
     {
         session_start();
     }
@@ -19,9 +19,8 @@ class UserController
         if (!Validator::validate($this->request)) {
             echo 'bad request';
         } else {
-            $db = new DB();
             $user = new User($this->request['login'], $this->request['password']);
-            if (!$db->createNewUser($user)) {
+            if (!$this->db->createNewUser($user)) {
                 $_SESSION['reg_error'] = 'Invalid Arguments';
             } else {
                 header('Location:/');
@@ -34,13 +33,13 @@ class UserController
         if (!Validator::validate($this->request)) {
             $_SESSION['auth_error'] = 'Invalid Validate';
         } else {
-            $db = new DB();
             $user = new User($this->request['login'], $this->request['password']);
-            if (!$db->checkUser($user)) {
+            if (!$this->db->checkUser($user)) {
                 $_SESSION['auth_error'] = 'Invalid Arguments';
                 header('Location:/');
             } else {
                 $_SESSION['auth'] = "authorization";
+                CurrencyController::refreshCurrencies($this->db);
                 header('Location:/home');
             }
         }

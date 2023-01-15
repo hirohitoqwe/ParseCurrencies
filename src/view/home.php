@@ -1,3 +1,11 @@
+<?php
+$db = new \DB\DB();
+
+$data = $db->getCurrenciesData();
+
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,6 +16,36 @@
     <title>Document</title>
 </head>
 <body>
-    123
+
+<div>
+    <form action="/convert" method="post">
+        <label for="TR">To Rubles:</label>
+        <input name="count" type="number">
+        <select name="TR" id="TR">
+            <?php
+            foreach ($data as $key => $currency){?>
+                <option value="<?=$currency['letterCode']?>"><?=$currency['currencyName']?></option>";
+            <?php }
+            ?>
+        </select>
+        <input type="submit" value="Перевести">
+    </form>
+    Result: <?=$_SESSION['TRvalue'] ?? ""?>
+
+    <form action="/convert" method="post">
+        <label for="FR">From Rubles:</label>
+        <input name="count" type="number">
+        <select name="FR" id="FR">
+            <?php
+            foreach ($data as $key => $currency){?>
+                <option value="<?=$currency['letterCode']?>"><?=$currency['currencyName']?></option>";
+            <?php }
+            ?>
+        </select>
+        <input type="submit" value="Перевести">
+    </form>
+    Result: <?=$_SESSION['FRvalue'] ?? ""?>
+</div>
+
 </body>
 </html>

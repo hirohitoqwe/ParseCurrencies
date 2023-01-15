@@ -2,6 +2,8 @@
 
 namespace DB;
 
+use Cassandra\Date;
+use Couchbase\ViewResult;
 use Model\User;
 use EnvConfig;
 use PDO;
@@ -66,5 +68,36 @@ class DB
         }
         return false;
     }
+
+    public function refreshCurrencies(): bool
+    {
+        $diff = date_diff(new \DateTime(), new \DateTime($this->getLastInsertDate()));
+        if ($diff->h >= 3) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getCurrenciesData(): array
+    {
+        $query = $this->connection->query('SELECT DISTINCT `letterCode`,`currencyName`,`course` from `currencies` LIMIT 50');
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getParticularCurrency(string $letterCode)
+    {
+        $query = $this->connection->prepare('SELECT DISTINCT `currencyName`,`course` from `currencies` WHERE `letterCode` = :code LIMIT 1');
+        $query->execute(['code' => $letterCode]);
+        return $query->fetchAll(PDO::FETCH_ASSOC)[0]["course"];
+    }
+
+
+    private function getLastInsertDate(): string|false
+    {
+        $query = $this->connection->query('SELECT `insert_at` FROM `currencies` LIMIT 1');
+        $data = $query->fetchAll();
+        return $data[0][0];
+    }
+
 
 }

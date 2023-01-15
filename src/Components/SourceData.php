@@ -16,7 +16,6 @@ class SourceData
     public function getCurrenciesData(): array|false
     {
         $crawler = new Crawler($this->getSourceData());
-
         if ($this->getSourceData()) {
             $table = $crawler->filter('table')->filter('tr')->each(function ($tr, $i) {
                 return $tr->filter('td')->each(function ($td, $i) {
