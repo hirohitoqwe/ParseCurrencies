@@ -9,7 +9,7 @@ use Model\User;
 
 class UserController
 {
-    public function __construct(private readonly array $request,private readonly DB $db)
+    public function __construct(private readonly array $request, private readonly DB $db)
     {
         session_start();
     }
@@ -44,6 +44,4 @@ class UserController
             }
         }
     }
-
-
 }

@@ -1,12 +1,11 @@
 <?php
 require_once 'vendor/autoload.php';
 
-use Symfony\Component\DomCrawler\Crawler;
-
 use \Bramus\Router\Router;
 use Controller\UserController;
 use Controller\CurrencyController;
 use DB\DB;
+
 session_start();
 
 $router = new Router();
@@ -20,23 +19,31 @@ $router->get('/home', function () {
     }
 });
 
+$router->get('/profile', function () {
+    if (!$_SESSION['auth']) {
+        header('Location:/');
+    } else {
+        require_once 'src/view/profile.php';
+    }
+});
+
 $router->get('/', function () {
     require_once 'src/view/start_page.php';
 });
 
 $router->post('/createUser', function () use ($db) {
-    $controller = new UserController($_POST,$db);
+    $controller = new UserController($_POST, $db);
     $controller->registration();
 });
 
 $router->post('/auth', function () use ($db) {
-    $controller = new UserController($_POST,$db);
+    $controller = new UserController($_POST, $db);
     $controller->auth();
 });
 
-$router->post('/convert', function () use($db) {
-    $controller = new CurrencyController($_POST,$db);
-    $controller->getConverted();
+$router->post('/convert', function () use ($db) {
+    $controller = new CurrencyController($_POST, $db);
+    echo (json_decode($controller->getConverted()));
 });
 
 $router->run();

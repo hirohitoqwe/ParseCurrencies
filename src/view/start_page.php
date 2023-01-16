@@ -7,7 +7,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Sign Up or Register</title>
 </head>
 <body>
 
@@ -16,9 +16,11 @@
 
 <form action="/createUser" method="post" name="registration">
     <p>Input Login</p>
-    <input type="text" name="login"><br>
+    <input type="text" name="login" required><br>
     <p>Input Password</p>
-    <input type="password" name="password"><br>
+    <input type="password" name="password" required><br>
+    <p>Confirm Password</p>
+    <input type="password" name="passwordconfirm" required><br>
     <input type="submit">
 </form>
 <?php if (!empty($_SESSION['reg_error'])) {
@@ -29,9 +31,9 @@ unset($_SESSION['reg_error']);
 <p>Авторизация</p>
 <form action="/auth" method="post" name="auth">
     <p>Input Login</p>
-    <input type="text" name="login"><br>
+    <input type="text" name="login" required><br>
     <p>Input Password</p>
-    <input type="password" name="password"><br>
+    <input type="password" name="password" required><br>
     <input type="submit">
 </form>
 <?php if (!empty($_SESSION['auth_error'])) {

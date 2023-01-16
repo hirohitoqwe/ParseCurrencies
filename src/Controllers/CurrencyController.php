@@ -11,19 +11,11 @@ class CurrencyController
 
     public function __construct(private readonly array $request, private readonly DB $db)
     {
-        session_start();
     }
 
     public function getConverted()
     {
-        $value = $this->convertCurrency();
-
-        if (isset($this->request["TR"])){
-            $_SESSION['TRvalue'] = $value;
-        }elseif(isset($this->request["FR"])){
-            $_SESSION['FRvalue'] = $value;
-        }
-        header("Location:/home");
+        return $this->convertCurrency();
     }
 
     private function convertCurrency()

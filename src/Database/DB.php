@@ -80,7 +80,7 @@ class DB
 
     public function getCurrenciesData(): array
     {
-        $query = $this->connection->query('SELECT DISTINCT `letterCode`,`currencyName`,`course` from `currencies` LIMIT 50');
+        $query = $this->connection->query('SELECT DISTINCT `numCode`,`letterCode`,`currencyName`,`course` from `currencies` LIMIT 50');
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
