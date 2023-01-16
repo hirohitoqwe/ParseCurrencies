@@ -27,6 +27,14 @@ $router->get('/profile', function () {
     }
 });
 
+$router->get('/profile/converter', function () {
+    if (!$_SESSION['auth']) {
+        header('Location:/');
+    } else {
+        require_once 'src/view/converter.php';
+    }
+});
+
 $router->get('/', function () {
     require_once 'src/view/start_page.php';
 });

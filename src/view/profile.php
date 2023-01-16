@@ -1,7 +1,7 @@
 <?php
 $db = new \DB\DB();
 
-$data = $db->getCurrenciesData();
+$user = $db->getUserData($_SESSION["auth"]);
 
 
 ?>
@@ -19,56 +19,9 @@ $data = $db->getCurrenciesData();
 <body>
 
 <div>
-    <form action="/convert" method="post">
-        <label for="TR">To Rubles:</label>
-        <input name="count" type="number" required>
-        <select name="TR" id="TR">
-            <?php
-            foreach ($data as $key => $currency) {
-                ?>
-                <option value="<?= $currency['letterCode'] ?>"><?= $currency['currencyName'] ?></option>";
-            <?php }
-            ?>
-        </select>
-        <input type="submit" value="Перевести">
-    </form>
+    Здравствуйте, <?= $user->name ?>
+</div>
 
-
-    <form action="/convert" method="post">
-        <label for="FR">From Rubles:</label>
-        <input name="count" type="number" required>
-        <select name="FR" id="FR">
-            <?php
-            foreach ($data as $key => $currency) {
-                ?>
-                <option value="<?= $currency['letterCode'] ?>"><?= $currency['currencyName'] ?></option>";
-            <?php }
-            ?>
-        </select>
-        <input type="submit" value="Перевести">
-    </form>
-<div>
-    <div id="result">
-    </div>
-
-<script>
-    $(document).ready(function () {
-        $('form').submit(function (event) {
-            event.preventDefault();
-            var $form = $(this);
-            $.ajax({
-                url: $form.attr('action'),
-                type: $form.attr('method'),
-                data: $form.serialize(),
-                dataType: "json",
-                success: function (result) {
-                    var element = document.getElementById('result');
-                    element.append(`Результат : ${result}`);
-                }
-            })
-        });
-    });
-</script>
-
+<a href="profile/converter">Конвертер валют</a>
 </body>
 </html>

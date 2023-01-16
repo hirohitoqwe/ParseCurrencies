@@ -38,7 +38,7 @@ class UserController
                 $_SESSION['auth_error'] = 'Invalid Arguments';
                 header('Location:/');
             } else {
-                $_SESSION['auth'] = "authorization";
+                $_SESSION['auth'] = $this->db->getUserId($user);
                 CurrencyController::refreshCurrencies($this->db);
                 header('Location:/home');
             }

@@ -2,8 +2,6 @@
 
 namespace DB;
 
-use Cassandra\Date;
-use Couchbase\ViewResult;
 use Model\User;
 use EnvConfig;
 use PDO;
@@ -35,6 +33,24 @@ class DB
             return false;
         }
 
+    }
+
+    public function getUserId(User $user): int
+    {
+        $query = $this->connection->prepare('SELECT `id` FROM `users` WHERE `login`=:login AND `password`=:password');
+        $query->execute(['login' => $user->name, 'password' => hash('sha256', $this->salt . $user->password)]);
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        return $data['id'];
+    }
+
+    public function getUserData(int $id): User
+    {
+        $query = $this->connection->prepare('SELECT * FROM `users` WHERE `id`=:id');
+        $query->execute(['id' => $id]);
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        $login = $data["login"];
+        $password = $data["password"];
+        return new User($login, $password);
     }
 
     public function checkUser(User $user): bool

@@ -4,7 +4,6 @@ namespace Controller;
 
 use Components\SourceData;
 use DB\DB;
-use http\Header;
 
 class CurrencyController
 {
