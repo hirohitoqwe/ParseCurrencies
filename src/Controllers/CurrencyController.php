@@ -28,7 +28,7 @@ class CurrencyController
         }
     }
 
-    public static function refreshCurrencies($db): bool
+    public static function refreshCurrencies(DB $db): bool
     {
         if ($db->refreshCurrencies()) {
             $data = new SourceData();

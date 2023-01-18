@@ -87,8 +87,11 @@ class DB
 
     public function refreshCurrencies(): bool
     {
+        if (!$this->getLastInsertDate()){
+            return true;
+        }
         $diff = date_diff(new \DateTime(), new \DateTime($this->getLastInsertDate()));
-        if ($diff->h >= 3) {
+        if ($diff->h >= 3 or $diff->d>=1) {
             return true;
         }
         return false;
@@ -112,6 +115,9 @@ class DB
     {
         $query = $this->connection->query('SELECT `insert_at` FROM `currencies` LIMIT 1');
         $data = $query->fetchAll();
+        if (!$data){
+            return false;
+        }
         return $data[0][0];
     }
 

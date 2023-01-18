@@ -19,8 +19,6 @@
     <input type="text" name="login" required><br>
     <p>Input Password</p>
     <input type="password" name="password" required><br>
-    <p>Confirm Password</p>
-    <input type="password" name="passwordconfirm" required><br>
     <input type="submit">
 </form>
 <?php if (!empty($_SESSION['reg_error'])) {
