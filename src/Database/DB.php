@@ -77,10 +77,11 @@ class DB
     {
         $query = $this->connection->prepare('INSERT INTO `currencies`(`numCode`,`letterCode`,`currencyName`,`course`,`insert_at`) VALUES(:numCode,:letterCode,:currencyName,:course,:insert_at) ');
         foreach ($data as $currency) {
+            $course = str_replace(',', '.', $currency[4]);
             if ($currency[2] != 1) {
-                $currency[4] = doubleval(intval($currency[4]) / $currency[2]);
+                $course = doubleval($course) / $currency[2];
             }
-            $query->execute(['numCode' => intval($currency[0]), 'letterCode' => $currency[1], 'currencyName' => $currency[3], 'course' => doubleval($currency[4]), 'insert_at' => date('Y-m-d H:i:s')]);
+            $query->execute(['numCode' => intval($currency[0]), 'letterCode' => $currency[1], 'currencyName' => $currency[3], 'course' => doubleval($course), 'insert_at' => date('Y-m-d H:i:s')]);
         }
         return false;
     }
@@ -121,7 +122,7 @@ class DB
         return $data['insert_at'];
     }
 
-    public function truncateCurrencies():bool
+    public function truncateCurrencies(): bool
     {
         $this->connection->query('TRUNCATE TABLE `currencies`');
         return true;
