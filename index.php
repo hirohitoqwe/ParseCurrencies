@@ -11,17 +11,13 @@ session_start();
 $router = new Router();
 $db = new DB();
 
-$router->get('/home', function () {
-    if (!$_SESSION['auth']) {
-        header('Location:/');
-    } else {
-        require_once 'src/view/home.php';
-    }
+$router->get('/login', function () {
+    require_once 'src/view/start_page.php';
 });
 
 $router->get('/profile', function () {
     if (!$_SESSION['auth']) {
-        header('Location:/');
+        header('Location:/login');
     } else {
         require_once 'src/view/profile.php';
     }
@@ -36,7 +32,7 @@ $router->get('/profile/converter', function () {
 });
 
 $router->get('/', function () {
-    require_once 'src/view/start_page.php';
+    require_once 'src/view/home.php';
 });
 
 $router->post('/createUser', function () use ($db) {

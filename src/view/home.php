@@ -1,7 +1,7 @@
 <?php
 
 $db = new \DB\DB();
-
+\Controller\CurrencyController::refreshCurrencies($db);
 $data = $db->getCurrenciesData();
 
 ?>
@@ -17,6 +17,8 @@ $data = $db->getCurrenciesData();
 </head>
 <body>
 <a href="/profile">Личный кабинет</a>
+<br>
+<a href="/login">Регистрация/Авторизация</a>
 <table cellpadding="4">
     <thead>
     <tr>

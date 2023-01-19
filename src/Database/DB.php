@@ -87,11 +87,11 @@ class DB
 
     public function refreshCurrencies(): bool
     {
-        if (!$this->getLastInsertDate()){
+        if (!$this->getLastInsertDate()) {
             return true;
         }
         $diff = date_diff(new \DateTime(), new \DateTime($this->getLastInsertDate()));
-        if ($diff->h >= 3 or $diff->d>=1) {
+        if ($diff->h >= 3 or $diff->d >= 1) {
             return true;
         }
         return false;
@@ -99,26 +99,32 @@ class DB
 
     public function getCurrenciesData(): array
     {
-        $query = $this->connection->query('SELECT DISTINCT `numCode`,`letterCode`,`currencyName`,`course` from `currencies` LIMIT 50');
+        $query = $this->connection->query('SELECT DISTINCT `id`,`numCode`,`letterCode`,`currencyName`,`course` from `currencies` ORDER BY `id` DESC');
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getParticularCurrency(string $letterCode)
     {
-        $query = $this->connection->prepare('SELECT DISTINCT `currencyName`,`course` from `currencies` WHERE `letterCode` = :code LIMIT 1');
+        $query = $this->connection->prepare('SELECT DISTINCT `id`,`currencyName`,`course` from `currencies` WHERE `letterCode` = :code ORDER BY `id` DESC LIMIT 1');
         $query->execute(['code' => $letterCode]);
-        return $query->fetchAll(PDO::FETCH_ASSOC)[0]["course"];
+        return $query->fetch(PDO::FETCH_ASSOC)["course"];
     }
 
 
     private function getLastInsertDate(): string|false
     {
-        $query = $this->connection->query('SELECT `insert_at` FROM `currencies` LIMIT 1');
-        $data = $query->fetchAll();
-        if (!$data){
+        $query = $this->connection->query('SELECT `id`,`insert_at` FROM `currencies` ORDER BY `id` DESC LIMIT 1');
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        if (!$data) {
             return false;
         }
-        return $data[0][0];
+        return $data['insert_at'];
+    }
+
+    public function truncateCurrencies():bool
+    {
+        $this->connection->query('TRUNCATE TABLE `currencies`');
+        return true;
     }
 
 

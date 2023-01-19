@@ -32,6 +32,7 @@ class CurrencyController
     {
         if ($db->refreshCurrencies()) {
             $data = new SourceData();
+            $db->truncateCurrencies();
             $db->insertCurrencies($data->getCurrenciesData());
             return true;
         }
