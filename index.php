@@ -31,6 +31,15 @@ $router->get('/profile/converter', function () {
     }
 });
 
+$router->get('/profile/exit', function () {
+    if (!$_SESSION['auth']) {
+        header('Location:/');
+    } else {
+        unset($_SESSION['auth']);
+        header('Location:/');
+    }
+});
+
 $router->get('/', function () {
     require_once 'src/view/home.php';
 });

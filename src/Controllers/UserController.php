@@ -36,11 +36,11 @@ class UserController
             $user = new User($this->request['login'], $this->request['password']);
             if (!$this->db->checkUser($user)) {
                 $_SESSION['auth_error'] = 'Invalid Arguments';
-                header('Location:/');
+                header('Location:/login');
             } else {
                 $_SESSION['auth'] = $this->db->getUserId($user);
                 CurrencyController::refreshCurrencies($this->db);
-                header('Location:/home');
+                header('Location:/');
             }
         }
     }

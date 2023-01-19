@@ -22,6 +22,11 @@ $user = $db->getUserData($_SESSION["auth"]);
     Здравствуйте, <?= $user->name ?>
 </div>
 
-<a href="profile/converter">Конвертер валют</a>
+<p>
+    <a href="profile/converter">Конвертер валют</a>
+</p>
+<p>
+    <a href="profile/exit">Выйти</a>
+</p>
 </body>
 </html>
