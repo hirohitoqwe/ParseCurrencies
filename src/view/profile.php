@@ -19,7 +19,7 @@ $user = $db->getUserData($_SESSION["auth"]);
 <body>
 
 <div>
-    Здравствуйте, <?= $user->name ?>
+    Здравствуйте, <?= htmlspecialchars($user->name) ?>
 </div>
 
 <p>

@@ -31,9 +31,8 @@ class CurrencyController
     public static function refreshCurrencies(DB $db): bool
     {
         if ($db->refreshCurrencies()) {
-            $data = new SourceData();
             $db->truncateCurrencies();
-            $db->insertCurrencies($data->getCurrenciesData());
+            $db->insertCurrencies(SourceData::getCurrenciesData());
             return true;
         }
         return false;

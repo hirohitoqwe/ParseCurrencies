@@ -8,15 +8,15 @@ class SourceData
 {
     const url = 'https://www.cbr.ru/currency_base/daily/';
 
-    public function getSourceData(): string|false
+    private static function getSourceData(): string|false
     {
         return file_get_contents(self::url);
     }
 
-    public function getCurrenciesData(): array|false
+    public static function getCurrenciesData(): array|false
     {
-        $crawler = new Crawler($this->getSourceData());
-        if ($this->getSourceData()) {
+        $crawler = new Crawler(self::getSourceData());
+        if (self::getSourceData()) {
             $table = $crawler->filter('table')->filter('tr')->each(function ($tr, $i) {
                 return $tr->filter('td')->each(function ($td, $i) {
                     return trim($td->text());
