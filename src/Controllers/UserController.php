@@ -17,11 +17,13 @@ class UserController
     public function registration(): void
     {
         if (!Validator::validate($this->request)) {
-            echo 'bad request';
+            $_SESSION['reg_error'] = 'Validate error';
+            header('Location:/login');//bad request
         } else {
             $user = new User($this->request['login'], $this->request['password']);
             if (!$this->db->createNewUser($user)) {
                 $_SESSION['reg_error'] = 'Invalid Arguments';
+                header('Location:/login');
             } else {
                 header('Location:/');
             }

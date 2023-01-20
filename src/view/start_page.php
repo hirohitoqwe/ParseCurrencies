@@ -21,8 +21,10 @@
     <input type="password" name="password" required><br>
     <input type="submit">
 </form>
-<?php if (!empty($_SESSION['reg_error'])) {
-    echo "<div>Registration error</div>";
+<?php
+$error = $_SESSION["reg_error"] ?? null;
+if ($error) {
+    echo "<div>$error</div>";
 }
 unset($_SESSION['reg_error']);
 ?>
