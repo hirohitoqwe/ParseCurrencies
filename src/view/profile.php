@@ -3,7 +3,10 @@ $db = new \DB\DB();
 
 $user = $db->getUserData($_SESSION["auth"]);
 
-
+if (!$user) {
+    unset($_SESSION['auth']);
+    header('Location:/login');
+}
 ?>
 
 <!doctype html>

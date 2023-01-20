@@ -43,11 +43,14 @@ class DB
         return $data['id'];
     }
 
-    public function getUserData(int $id): User
+    public function getUserData(int $id): User|null
     {
         $query = $this->connection->prepare('SELECT * FROM `users` WHERE `id`=:id');
         $query->execute(['id' => $id]);
         $data = $query->fetch(PDO::FETCH_ASSOC);
+        if (!$data){
+            return null;
+        }
         $login = $data["login"];
         $password = $data["password"];
         return new User($login, $password);

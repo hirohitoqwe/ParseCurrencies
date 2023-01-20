@@ -16,7 +16,7 @@ $router->get('/login', function () {
 });
 
 $router->get('/profile', function () {
-    if (!$_SESSION['auth']) {
+    if (!isset($_SESSION['auth'])) {
         header('Location:/login');
     } else {
         require_once 'src/view/profile.php';
@@ -56,7 +56,7 @@ $router->post('/auth', function () use ($db) {
 
 $router->post('/convert', function () use ($db) {
     $controller = new CurrencyController($_POST, $db);
-    echo (json_decode($controller->getConverted()));
+    echo $controller->getConverted();
 });
 
 $router->run();
